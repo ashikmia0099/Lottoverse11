@@ -1,0 +1,66 @@
+{% extends "profile.html" %}
+{% block Deshboard %}
+
+<div class="p-4">
+  <div class="card w-100">
+    <div class="p-4">
+      <h1>Referral Program</h1>
+    </div>
+    <div class="card-body">
+      <div class="row d-flex">
+        <div class="col-5">
+          <h3>Your Referral Id</h3>
+          {% if refferal_code %}
+          <div class="d-flex gap-5">
+            {% for sponsor in refferal_code %}
+            <div class="input-group">
+              <input type="text" class="form-control" value="{{ sponsor.code }}" id="referral-code-input" readonly>
+              <button class="btn btn-outline-dark bi bi-clipboard" onclick="copyReferralCode()">Copy</button>
+
+              
+            </div>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+        <div class="col-7">
+          <h3>Your Referral Link</h3>
+          {% if refferal_link %}
+          <div class="input-group">
+            <input type="text" class="form-control" value="{{ refferal_link }}" id="referral-link-input" readonly>
+            <button class="btn btn-outline-dark" onclick="copyReferralLink()">Copy</button>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function copyReferralCode() {
+    var copyText = document.getElementById("referral-code-input");
+    copyText.select();
+    copyText.setSelectionRange(0, 99999);
+    document.execCommand("copy");
+    document.getElementById("copyMessage").innerText = "Referral code copied!";
+    setTimeout(function() {
+      document.getElementById("copyMessage").innerText = "";
+    }, 3000);
+  }
+
+  function copyReferralLink() {
+    var copyText = document.getElementById("referral-link-input");
+    copyText.select();
+    copyText.setSelectionRange(0, 99999);
+    document.execCommand("copy");
+    document.getElementById("copyMessage").innerText = "Referral link copied!";
+    setTimeout(function() {
+      document.getElementById("copyMessage").innerText = "";
+    }, 3000);
+  }
+</script>
+
+
+
+{% endblock Deshboard %}

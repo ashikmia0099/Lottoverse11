@@ -1,0 +1,89 @@
+<!-- shopping_card.html -->
+{% extends "base.html" %}
+{% block content %}
+
+{% if messages %} 
+{% for i in messages %}
+<h4>{{i}}</h4>
+{% endfor %} {% endif %}
+
+<h1>Shopping Card</h1>
+<div class="p-2">
+    <div class="card justify-content-center text-center" style="overflow-y: scroll; max-height: 500px;">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Ticket Number</th>
+                    <th scope="col">Ticket Price</th>
+                    <th scope="col">Purchase Date</th>
+                    <th scope="col">Cancel Ticket</th>
+                    <th scope="col">Total Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in shopping_data %}
+                <tr> 
+                    <td>{{ item.package.id }}</td>
+                    <td>{{ item.ticket_number }}</td>
+                    <td>{{ item.ticket_price }}</td>
+                    <td>{{ item.last_ticket_date }}</td>
+                    <td><a class="btn btn-danger" href="{% url 'cancel_ticket' item.id %}">Cancel</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="p-3 d-flex">
+        <div class="col-6">
+            <table class=""><h3 class="bg-white">Total Price: $ {{total_price}}</h3></table>
+        </div>
+        <div class="col-6 d-flex gap-4">
+            <a class="btn btn-secondary m-2" type="button" id="connectWalletBtn" href="{% url 'handle_payment' total_price %}">Connect Wallet</a>
+            <form action="{% url 'handle_payment' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="total_price" value="{{ total_price }}">
+                <button class="btn btn-secondary m-2" type="submit">Pay Now</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Function to handle Metamask connection
+        function connectWallet() {
+            if (window.ethereum) {
+                window.ethereum
+                    .request({ method: 'eth_requestAccounts' })
+                    .then((accounts) => {
+                        // Metamask successfully connected, handle accordingly
+                        console.log('Metamask connected. Account:', accounts[0]);
+                        // Implement your payment logic here
+                        // Redirect to handle_payment view with total price
+                        window.location.href = "{% url 'handle_payment' total_price %}";
+                    })
+                    .catch((error) => {
+                        // Metamask connection request denied by user
+                        console.error('Metamask connection failed:', error);
+                        alert('Metamask connection request denied by user.');
+                    });
+            } else {
+                // Metamask not found
+                alert('Metamask not found. Please install Metamask extension.');
+            }
+        }
+
+        // Event listener for Connect Wallet button
+        const connectWalletBtn = document.getElementById('connectWalletBtn');
+        if (connectWalletBtn) {
+            connectWalletBtn.addEventListener('click', connectWallet);
+        }
+    });
+</script>
+
+
+{% endblock content %}
+
+

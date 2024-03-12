@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+  
+{% if messages %} 
+{% for i in messages %}
+<h4>{{i}}</h4>
+{% endfor %} {% endif %}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2 class="mb-4">Register/Login with MetaMask</h2>
+            <!-- Form for MetaMask registration/login -->
+            <form id="metamask-registration-form" method="post">
+                {% csrf_token %}
+                <!-- Button to connect MetaMask account -->
+                <button type="button" id="connect-metamask-btn" class="btn btn-primary">Connect MetaMask</button>
+                <!-- Hidden field to store MetaMask public key -->
+                <input type="hidden" id="public-key" name="public_key">
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        // Handle click event on the connect MetaMask button
+        $('#connect-metamask-btn').click(function() {
+            // Check if MetaMask is installed
+            if (window.ethereum) {
+                // Request MetaMask to connect
+                window.ethereum.request({ method: 'eth_requestAccounts' })
+                    .then(function(accounts) {
+                        // MetaMask account connected successfully
+                        // Prompt user to select the account number
+                        var selectedAccount = prompt('Select your MetaMask account:', accounts[0]);
+                        if (selectedAccount) {
+                            // Update the public key field with the selected MetaMask account
+                            $('#public-key').val(selectedAccount);
+                            // Submit the form
+                            $('#metamask-registration-form').submit();
+                        }
+                    })
+                    .catch(function(error) {
+                        // MetaMask connection request denied or failed
+                        console.error('MetaMask connection error:', error);
+                        alert('Failed to connect MetaMask account. Please check MetaMask and try again.');
+                    });
+            } else {
+                // MetaMask extension not detected
+                alert('MetaMask extension not detected. Please install MetaMask and try again.');
+            }
+        });
+    });
+</script>
+
+{% endblock content %}

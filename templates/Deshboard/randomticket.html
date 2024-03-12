@@ -1,0 +1,148 @@
+{% extends "profile.html" %}
+{% block Deshboard %}
+
+<div class=" text-center">
+
+    <form method="post" action="{% url 'addtocardpage' %}">
+        {% csrf_token %}
+        <button type="submit btn-success">Select Random Ticket</button>
+    </form>
+</div>
+
+<div class="d-flex text-center">
+    {% for package, tickets in tickets_by_package.items %}
+    <div class="d-flex">
+        <div class="p-2 pt-5 cardtop position: sticky">
+            <div class="p-2" style="overflow-y: scroll; max-height: 700px;">
+                <div class="cardwidth" style="position: relative;">
+                    <div class="text-start p-2">
+                        <div> 
+                            <h4>{{ package.name }}</h4>
+                            <h4>Ticket Price: ${{ package.price }}</h4>
+                           
+                            <h4>Available ticket: {{ package.quentity }}</h4>
+                             <h4>Total Ticket : 10000</h4>
+                        </div>
+                    </div>
+
+                    <div class="ticket-container">
+                        {% for ticket in tickets %}
+                        <a href="{% url 'select_ticket' package.id ticket %}" class="btn btncolor ticket">{{ ticket }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Buy ticket history -->
+<div>
+    <div class="text-center pt-5">
+        <div class>
+            <h3>Purchase Ticket History</h3>
+        </div>
+        <div class="p-2">
+            <div class="card" style="overflow-y: scroll; max-height: 500px;">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Ticket Number</th>
+                            <th scope="col">Ticket Price $</th>
+                            <th scope="col">Activity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in shopping_data %}
+                        <tr>
+                            <td>{{ item.ticket_number }}</td>
+                            <td>{{ item.ticket_price }}</td>
+                            <td>{{ item.total_price }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- add to cart -->
+    <div>
+        <div class=" card p-2">
+            <h3>Total Price:</h3>
+            <button type="submit btn-success">Payment</button>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<style>
+
+.fullcardbody{
+border-right: 2px solid gray;
+}
+
+
+.ticket {
+border: 1px solid #aaaaaa;
+padding: 10px;
+margin: 10px;
+width: 150px;
+text-align: center;
+display: inline-block;
+border-radius: 33px;
+color: #171817;
+
+}
+
+.ticket:hover {
+background-color: rgb(175, 175, 175);
+color: white;
+/* Override background color on hover */
+}
+
+.tickets-container {
+margin-top: 20px;
+}
+
+button {
+padding: 10px 20px;
+background-color: #1c1c1d;
+color: #fff;
+border: none;
+cursor: pointer;
+}
+.cardwidth{
+
+width: 350px;
+border: 2px solid gray;
+border-radius: 10px;
+
+}
+
+.borderbottom{
+border-bottom: 2px solid gray;
+}
+
+.btncolor{
+background-color: black;
+color: #fff9f9;
+}
+
+
+.ticketcancel{
+background-color: rgb(245, 51, 51);
+color: rgb(180, 185, 185);
+}
+
+
+.ticketcancel:hover {
+background-color: rgb(238, 47, 47);
+color: rgb(180, 185, 185);
+
+}
+
+</style>
+
+{% endblock Deshboard %}

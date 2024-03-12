@@ -1,0 +1,29 @@
+{% extends "profile.html" %}
+{% block Deshboard %}
+<h1>hello world </h1>
+
+<h1>Shopping History</h1>
+    <div class="container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Package</th>
+                    <th>Ticket Number</th>
+                    <th>Ticket Price</th>
+                    <th>Purchase Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in data %}
+                <tr>
+                    <td>{{ item.package }}</td>
+                    <td>{{ item.ticket_number }}</td>
+                    <td>{{ item.ticket_price }}</td>
+                    <td>{{ item.purches_date }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock Deshboard %}

@@ -1,0 +1,43 @@
+{% extends "profile.html" %}
+{% block Deshboard %}
+
+<div class="p-4 text-center">
+    <div class="text-center">
+        <h2>My Referral User</h2>
+    </div>
+    <div class="table-responsive">
+        <table class="table"> 
+            <thead>
+                <tr>
+                    <th scope="col">Referral Level</th>
+                    <th scope="col">Total User</th>
+                    <th scope="col">Active User</th>
+                    <th scope="col">Inactive User</th>
+                    <th scope="col">Referral Commission</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for data in zipped_data %}
+                <tr>
+                    <td>Level {{ data.0 }}</td>
+                    <td>{{ data.1 }}</td>
+                    <td>{{ data.2 }}</td>
+                    <td>{{ data.3 }}</td>
+                    <td>$ {{ data.4 }}</td>
+                </tr> 
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+
+
+<!-- copy code  -->
+
+
+
+{% endblock Deshboard %}

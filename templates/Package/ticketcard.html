@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row">
+    <h1>hello page</h1>
+    {% for package in packages %}
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ package.name }}</h5>
+                <p class="card-text">Price: ${{ package.price }}</p>
+                <p class="card-text">Date Left: {{ package.date_left }}</p>
+                <p class="card-text">Quantity: {{ package.quentity }}</p>
+                <p class="card-text">Created At: {{ package.created_at }}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+
+{% endblock content %}

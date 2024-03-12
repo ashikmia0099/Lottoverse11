@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+  
+
+
+ {% if request.user.is_authenticated %}
+  
+    {{request.user}}
+
+    
+
+{% else %}
+
+    
+    <a class="btn btn-dark" >Create an account</a>
+    
+
+{% endif %} 
+
+
+{% endblock content %}

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+{% if messages %} 
+{% for i in messages %}
+<h4>{{i}}</h4>
+{% endfor %} {% endif %}
+
+
+<h1>Account Balance</h1>
+    {% if request.user.is_authenticated %}
+        <p>Available Balance: 
+            {% if account_balance %}
+                {{ account_balance }}
+            {% else %}
+                Hidden
+            {% endif %}
+        </p>
+        
+    {% endif %}
+
+      {% endblock content %}
+
+
+

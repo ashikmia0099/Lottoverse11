@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if messages %}
+  {% for i in messages %}
+  <h4> {{i}} </h4>
+    
+
+
+
+
+  {% endfor %}
+  {% endif %}
+        This is home page
+
+        
+    
+  <h1>Generated Tickets</h1>
+    
+    <!-- {% for package, tickets in tickets_by_package.items %}
+        <div class="card d-flex">
+            <h2>{{ package.name }}</h2>
+            <p>Price: {{ package.price }}</p>
+            <p>Date Left: {{ package.date_left }}</p>
+            <p>Quantity: {{ package.quentity }}</p>
+            <ul>
+                {% for ticket in tickets %}
+                    <li>{{ ticket }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endfor %}
+
+    <style>
+        .card {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px;
+            width: 300px;
+        }
+    </style> -->
+
+
+{% endblock  %}
