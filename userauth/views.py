@@ -74,11 +74,11 @@ def main_view(request, *args, **kwargs):
     try:
         profile = Sponsor.objects.get(code = code)
         request.session['ref_profile'] = profile.id
-        print('id', profile.id)
+        # print('id', profile.id)
         
     except:
         pass
-    print(request.session.get_expiry_date())  
+    # print(request.session.get_expiry_date()) 
     return render(request,'main.html', )
 
 
