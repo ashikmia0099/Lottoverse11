@@ -138,7 +138,6 @@ pytz
 pytz-deprecation-shim
 pyuca
 pyunormalize
-pywin32
 referencing
 regex
 requests
